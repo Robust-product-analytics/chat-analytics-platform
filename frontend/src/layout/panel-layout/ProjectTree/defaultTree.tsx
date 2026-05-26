@@ -72,7 +72,7 @@ import {
     getTreeItemsNew,
     getTreeItemsProducts,
 } from '~/products'
-import { FileSystemIconType, FileSystemImport } from '~/queries/schema/schema-general'
+import { FileSystemIconType, FileSystemImport, ProductItemCategory } from '~/queries/schema/schema-general'
 import { FileSystemIconColor } from '~/types'
 
 const iconTypes: Record<FileSystemIconType, { icon: JSX.Element; iconColor?: FileSystemIconColor }> = {
@@ -460,12 +460,49 @@ export function iconForType(type?: FileSystemIconType, colorOverride?: FileSyste
     )
 }
 
+const HIDDEN_PRODUCT_SCENE_KEYS = new Set([
+    'WebAnalytics',
+    'Replay',
+    'FeatureFlags',
+    'Experiments',
+    'Surveys',
+    'EarlyAccessFeatures',
+    'WebScripts',
+    'MarketingAnalytics',
+    'ErrorTracking',
+    'Heatmaps',
+    'SQLEditor',
+])
+
+const HIDDEN_PRODUCT_CATEGORIES = new Set<ProductItemCategory>([
+    ProductItemCategory.AI_ENGINEERING,
+    ProductItemCategory.TOOLS,
+    ProductItemCategory.BEHAVIOR,
+])
+
+const HIDDEN_NEW_TREE_PATHS = new Set([
+    'Session replay',
+    'Feature flag',
+    'Experiment',
+    'Survey',
+    'Early access feature',
+    'Data/Web script',
+])
+
 export const getDefaultTreeNew = (): FileSystemImport[] =>
-    [...getTreeItemsNew()].sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
+    [...getTreeItemsNew()]
+        .filter((item) => !HIDDEN_NEW_TREE_PATHS.has(item.path))
+        .sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 export const getDefaultTreeData = (): FileSystemImport[] =>
     [...getTreeItemsMetadata()].sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 export const getDefaultTreeProducts = (): FileSystemImport[] =>
-    [...getTreeItemsProducts()].sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
+    [...getTreeItemsProducts()]
+        .filter(
+            (item) =>
+                (!item.sceneKey || !HIDDEN_PRODUCT_SCENE_KEYS.has(item.sceneKey)) &&
+                !HIDDEN_PRODUCT_CATEGORIES.has(item.category as ProductItemCategory)
+        )
+        .sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 export const getDefaultTreeGames = (): FileSystemImport[] =>
     [...getTreeItemsGames()].sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 

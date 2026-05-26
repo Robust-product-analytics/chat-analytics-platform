@@ -250,7 +250,7 @@ export function NavTabBrowse(): JSX.Element {
 
                     <NavLink
                         to={urls.activity(ActivityTab.ExploreEvents)}
-                        label="Activity"
+                        label="Conversations"
                         icon={<IconClock />}
                         isCollapsed={isLayoutNavCollapsed}
                         data-attr="nav-item-activity"

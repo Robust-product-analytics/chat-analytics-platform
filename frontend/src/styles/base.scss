@@ -2135,3 +2135,8 @@
         transform: translateY(0);
     }
 }
+
+// Whitelabel overrides — must come last so its :root values win the cascade.
+// Sass @import of a partial is inlined at build time (not a CSS @import).
+/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+@import 'whitelabel';

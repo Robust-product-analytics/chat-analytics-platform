@@ -75,7 +75,9 @@ export const themeLogic = kea<themeLogicType>([
         ],
         isDarkModeOn: [
             (s) => [s.themeMode, s.darkModeSystemPreference, sceneLogic.selectors.sceneConfig, s.theme],
-            (themeMode, darkModeSystemPreference, sceneConfig, theme) => {
+            (_themeMode, _darkModeSystemPreference, _sceneConfig, _theme) => {
+                // Whitelabel: app is locked to light mode. Storybook can still
+                // exercise dark visuals via the explicit test-runner override.
                 if (
                     typeof window !== 'undefined' &&
                     window.document &&
@@ -84,15 +86,7 @@ export const themeLogic = kea<themeLogicType>([
                 ) {
                     return true
                 }
-                if (theme) {
-                    return !!theme?.dark
-                }
-                // NOTE: Unauthenticated users always get the light mode until we have full support for dark mode there
-                if (sceneConfig?.allowUnauthenticated || sceneConfig?.onlyUnauthenticated) {
-                    return false
-                }
-
-                return themeMode === 'system' ? darkModeSystemPreference : themeMode === 'dark'
+                return false
             },
         ],
     }),

@@ -1,0 +1,43 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Whitelabel theme — single source of truth.
+//
+// To re-theme the entire app, edit the two `--wl-*` lines below. Everything
+// else in this file is wiring: it re-points PostHog's existing design tokens
+// at these two variables so the cascade flows through the rest of the UI.
+//
+// TODO(whitelabel): the @import below pulls "Assistant" from Google Fonts.
+// For production privacy/perf, copy the woff2 files into frontend/public/ and
+// add @font-face blocks alongside Inter in frontend/src/styles/fonts.scss.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@import 'https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap';
+
+:root,
+:host {
+    // ╭─ EDIT THESE TWO LINES TO RETHEME THE APP ─╮
+    --wl-bg-base: #fafafa;
+    --wl-font-base:
+        'Assistant', 'Heebo', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', arial, sans-serif;
+
+    // ╰────────────────────────────────────────────╯
+
+    // Wire the bg variable into PostHog's existing token system. The body
+    // element reads --color-bg-primary directly (base.scss body { background }),
+    // and so do hundreds of components via Tailwind's bg-primary utility.
+    --color-bg-primary: var(--wl-bg-base);
+
+    // Re-point PostHog's three font tokens at our single source. base.scss
+    // defines --font-sans (toolbar, notebook, etc.), --font-title (h1-h4,
+    // KeyboardShortcut), and --font-button (LemonButton). All three should
+    // share the whitelabel family for a coherent look. --font-mono is left
+    // alone (monospace is semantically different).
+    --font-sans: var(--wl-font-base);
+    --font-title: var(--wl-font-base);
+    --font-button: var(--wl-font-base);
+}
+
+// Belt-and-suspenders: override the dark-mode value too so even if something
+// flips theme="dark" before themeLogic forces light, the bg stays white.
+[theme='dark'] {
+    --color-bg-primary: var(--wl-bg-base);
+}

@@ -757,17 +757,12 @@ const config = {
                 success: 'var(--color-border-success)',
             },
             fontFamily: {
+                // Whitelabel: read from --wl-font-base so the entire app's font
+                // can be retargeted by editing one line in _whitelabel.scss.
+                // Trailing fallbacks preserve emoji rendering on every platform.
                 sans: [
                     'Emoji Flags Polyfill',
-                    '-apple-system',
-                    'BlinkMacSystemFont',
-                    'Inter',
-                    'Segoe UI',
-                    'Roboto',
-                    'Helvetica Neue',
-                    'Helvetica',
-                    'Arial',
-                    'sans-serif',
+                    'var(--wl-font-base)',
                     'Apple Color Emoji',
                     'Segoe UI Emoji',
                     'Segoe UI Symbol',

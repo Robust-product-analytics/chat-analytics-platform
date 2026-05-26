@@ -13,21 +13,11 @@ import {
     IconGraph,
     IconHome,
     IconLive,
-    IconLlmAnalytics,
-    IconMessage,
     IconNotebook,
     IconPeople,
-    IconPieChart,
     IconPiggyBank,
-    IconPlug,
     IconPlusSmall,
-    IconRewindPlay,
-    IconRocket,
-    IconServer,
     IconSpotlight,
-    IconTestTube,
-    IconToggle,
-    IconWarning,
 } from '@posthog/icons'
 import { Spinner, lemonToast } from '@posthog/lemon-ui'
 
@@ -36,16 +26,14 @@ import { LemonMenuOverlay } from 'lib/lemon-ui/LemonMenu/LemonMenu'
 import { featureFlagLogic } from 'lib/logic/featureFlagLogic'
 import { isNotNil } from 'lib/utils'
 import { getAppContext } from 'lib/utils/getAppContext'
-import { editorSceneLogic } from 'scenes/data-warehouse/editor/editorSceneLogic'
 import { organizationLogic } from 'scenes/organizationLogic'
 import { sceneLogic } from 'scenes/sceneLogic'
 import { Scene } from 'scenes/sceneTypes'
-import { sessionRecordingSavedFiltersLogic } from 'scenes/session-recordings/filters/sessionRecordingSavedFiltersLogic'
 import { urls } from 'scenes/urls'
 
 import { dashboardsModel } from '~/models/dashboardsModel'
 import { groupsModel } from '~/models/groupsModel'
-import { AccessControlLevel, AccessControlResourceType, ReplayTabs } from '~/types'
+import { AccessControlLevel, AccessControlResourceType } from '~/types'
 
 import { navigationLogic } from '../navigation/navigationLogic'
 import type { navigation3000LogicType } from './navigationLogicType'
@@ -72,8 +60,6 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
             ['sceneConfig', 'activeSceneId'],
             navigationLogic,
             ['mobileLayout'],
-            sessionRecordingSavedFiltersLogic,
-            ['savedFilters', 'savedFiltersLoading'],
             organizationLogic,
             ['isCurrentOrganizationUnavailable'],
         ],
@@ -396,14 +382,12 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
             (isNavCollapsedDesktop, mobileLayout): boolean => !mobileLayout && isNavCollapsedDesktop,
         ],
         navbarItems: [
-            (s) => [
+            (_s) => [
                 featureFlagLogic.selectors.featureFlags,
                 dashboardsModel.selectors.dashboardsLoading,
                 dashboardsModel.selectors.pinnedDashboards,
-                s.savedFilters,
-                s.savedFiltersLoading,
             ],
-            (featureFlags, dashboardsLoading, pinnedDashboards, savedFilters, savedFiltersLoading): NavbarItem[][] => {
+            (featureFlags, dashboardsLoading, pinnedDashboards): NavbarItem[][] => {
                 return [
                     [
                         {
@@ -469,7 +453,7 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                         },
                         {
                             identifier: Scene.ExploreEvents,
-                            label: 'Activity',
+                            label: 'Conversations',
                             icon: <IconLive />,
                             to: urls.activity(),
                             tooltipDocLink: 'https://posthog.com/docs/data/events',
@@ -493,13 +477,6 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                                       }
                                     : undefined,
                         },
-                        {
-                            identifier: Scene.WebAnalytics,
-                            label: 'Web analytics',
-                            icon: <IconPieChart />,
-                            to: urls.webAnalytics(),
-                            tooltipDocLink: 'https://posthog.com/docs/web-analytics/getting-started',
-                        },
                         featureFlags[FEATURE_FLAGS.REVENUE_ANALYTICS]
                             ? {
                                   identifier: Scene.RevenueAnalytics,
@@ -510,74 +487,6 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                                   tooltipDocLink: 'https://posthog.com/docs/revenue-analytics/getting-started',
                               }
                             : null,
-                        {
-                            identifier: Scene.Replay,
-                            label: 'Session replay',
-                            icon: <IconRewindPlay />,
-                            to: urls.replay(),
-                            tooltipDocLink: 'https://posthog.com/docs/session-replay',
-                            sideAction: {
-                                identifier: 'replay-dropdown',
-                                dropdown: {
-                                    overlay: (
-                                        <LemonMenuOverlay
-                                            items={
-                                                savedFilters.count > 0
-                                                    ? [
-                                                          {
-                                                              title: 'Saved filters',
-                                                              items: savedFilters.results.map((savedFilter) => ({
-                                                                  label:
-                                                                      savedFilter.name ||
-                                                                      savedFilter.derived_name ||
-                                                                      'Unnamed',
-                                                                  to: urls.replayPlaylist(savedFilter.short_id),
-                                                              })),
-                                                              footer: savedFiltersLoading && (
-                                                                  <div className="px-2 py-1 text-tertiary">
-                                                                      <Spinner /> Loading…
-                                                                  </div>
-                                                              ),
-                                                          },
-                                                      ]
-                                                    : [
-                                                          {
-                                                              label: 'All recordings',
-                                                              to: urls.replay(ReplayTabs.Home),
-                                                          },
-                                                          {
-                                                              label: 'Saved filters',
-                                                              to: urls.replay(ReplayTabs.Home),
-                                                          },
-                                                      ]
-                                            }
-                                        />
-                                    ),
-                                    placement: 'bottom-end',
-                                },
-                            },
-                        },
-                        {
-                            identifier: Scene.FeatureFlags,
-                            label: 'Feature flags',
-                            icon: <IconToggle />,
-                            to: urls.featureFlags(),
-                            tooltipDocLink: 'https://posthog.com/docs/feature-flags/creating-feature-flags',
-                        },
-                        {
-                            identifier: Scene.Experiments,
-                            label: 'Experiments',
-                            icon: <IconTestTube />,
-                            to: urls.experiments(),
-                            tooltipDocLink: 'https://posthog.com/docs/experiments/creating-an-experiment',
-                        },
-                        {
-                            identifier: Scene.Surveys,
-                            label: 'Surveys',
-                            icon: <IconMessage />,
-                            to: urls.surveys(),
-                            tooltipDocLink: 'https://posthog.com/docs/surveys/creating-surveys',
-                        },
                         featureFlags[FEATURE_FLAGS.PRODUCT_TOURS]
                             ? {
                                   identifier: Scene.ProductTours,
@@ -587,13 +496,6 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                                   to: urls.productTours(),
                               }
                             : null,
-                        {
-                            identifier: Scene.EarlyAccessFeatures,
-                            label: 'Early access features',
-                            icon: <IconRocket />,
-                            to: urls.earlyAccessFeatures(),
-                            tooltipDocLink: 'https://posthog.com/docs/feature-flags/early-access-feature-management',
-                        },
                         featureFlags[FEATURE_FLAGS.USER_INTERVIEWS]
                             ? {
                                   identifier: Scene.UserInterviews,
@@ -604,58 +506,12 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                               }
                             : null,
                         {
-                            identifier: 'LLMAnalytics',
-                            label: 'AI observability',
-                            icon: <IconLlmAnalytics />,
-                            to: urls.llmAnalyticsDashboard(),
-                            tooltipDocLink: 'https://posthog.com/docs/ai-observability/dashboard',
-                        },
-                        featureFlags[FEATURE_FLAGS.MCP_ANALYTICS]
-                            ? {
-                                  identifier: 'MCPAnalytics',
-                                  label: 'MCP analytics',
-                                  icon: <IconLlmAnalytics />,
-                                  to: urls.mcpAnalyticsDashboard(),
-                                  tooltipDocLink: 'https://posthog.com/docs/mcp-analytics/installation',
-                              }
-                            : null,
-                        {
                             identifier: Scene.Logs,
                             label: 'Logs',
                             icon: <IconLive />,
                             to: urls.logs(),
                             tag: 'beta' as const,
                             tooltipDocLink: 'https://posthog.com/docs/logs',
-                        },
-                        {
-                            identifier: Scene.ErrorTracking,
-                            label: 'Error tracking',
-                            icon: <IconWarning />,
-                            to: urls.errorTracking(),
-                            tooltipDocLink: 'https://posthog.com/docs/error-tracking/stack-traces',
-                        },
-                        {
-                            identifier: Scene.SQLEditor,
-                            label: 'SQL editor',
-                            icon: <IconServer />,
-                            to: urls.sqlEditor(),
-                            logic: editorSceneLogic,
-                            tooltipDocLink: 'https://posthog.com/docs/data-warehouse/query#querying-sources-with-sql',
-                        },
-                        {
-                            identifier: Scene.WebScripts,
-                            label: 'Web scripts',
-                            icon: <IconPlug />,
-                            to: urls.webScripts(),
-                            tooltipDocLink: 'https://posthog.com/docs/cdp/apps',
-                        },
-                        {
-                            identifier: Scene.Heatmaps,
-                            label: 'Heatmaps',
-                            icon: <IconCursorClick />,
-                            to: urls.heatmaps(),
-                            tag: 'beta' as const,
-                            tooltipDocLink: 'https://posthog.com/docs/toolbar/heatmaps',
                         },
                         featureFlags[FEATURE_FLAGS.LINKS]
                             ? {
