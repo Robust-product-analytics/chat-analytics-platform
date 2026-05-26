@@ -1514,12 +1514,15 @@ export const sceneLogic = kea<sceneLogicType>([
         mapping['/'] = (_params, searchParams) => {
             const homepage = values.homepage
 
+            // Whitelabel: when no custom homepage is configured, land on the
+            // Conversations list (the renamed Events table) — that's the
+            // CX-manager daily driver. The `homepage` user-setting still wins.
+            const whitelabelHome = urls.activity()
+
             if (homepage) {
-                let targetPathname = homepage.pathname
-                    ? addProjectIdIfMissing(homepage.pathname)
-                    : urls.projectHomepage()
+                let targetPathname = homepage.pathname ? addProjectIdIfMissing(homepage.pathname) : whitelabelHome
                 if (targetPathname === '/') {
-                    targetPathname = urls.projectHomepage()
+                    targetPathname = whitelabelHome
                 }
                 const targetSearch = homepage.search || ''
                 const targetHash = homepage.hash || ''
@@ -1536,7 +1539,7 @@ export const sceneLogic = kea<sceneLogicType>([
             }
 
             router.actions.replace(
-                withForwardedSearchParams(urls.projectHomepage(), searchParams, forwardedRedirectQueryParams)
+                withForwardedSearchParams(whitelabelHome, searchParams, forwardedRedirectQueryParams)
             )
         }
 

@@ -48,6 +48,7 @@ import { sceneLayoutLogic } from '~/layout/scenes/sceneLayoutLogic'
 import { notebooksModel } from '~/models/notebooksModel'
 import { tagsModel } from '~/models/tagsModel'
 import { AccessControlLevel, AccessControlResourceType, DashboardMode, ExporterFormat, SidePanelTab } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { dashboardInsightColorsModalLogic } from './dashboardInsightColorsModalLogic'
 import { dashboardLogic } from './dashboardLogic'
@@ -143,13 +144,16 @@ function DashboardSceneMenuBarInner(): JSX.Element | null {
                                     <IconNotebook />
                                     Notebook from dashboard
                                 </SceneMenuBarItem>
-                                <SceneMenuBarItem
-                                    onClick={() => push(urlForSubscriptions({ dashboardId: dashboard.id }))}
-                                    data-attr={`${RESOURCE_TYPE}-menubar-subscribe`}
-                                >
-                                    <IconBell />
-                                    Subscription
-                                </SceneMenuBarItem>
+                                {/* Whitelabel-gated: dashboard.subscribe */}
+                                {isVisible('dashboard.subscribe') && (
+                                    <SceneMenuBarItem
+                                        onClick={() => push(urlForSubscriptions({ dashboardId: dashboard.id }))}
+                                        data-attr={`${RESOURCE_TYPE}-menubar-subscribe`}
+                                    >
+                                        <IconBell />
+                                        Subscription
+                                    </SceneMenuBarItem>
+                                )}
                             </SceneMenuBarSubMenu>
                             <SceneMenuBarSeparator />
                         </>
@@ -213,7 +217,8 @@ function DashboardSceneMenuBarInner(): JSX.Element | null {
                                 <IconDownload />
                                 PNG
                             </SceneMenuBarItem>
-                            {user?.is_staff && (
+                            {/* Whitelabel-gated: dashboard.duplicate-as-sql */}
+                            {user?.is_staff && isVisible('dashboard.duplicate-as-sql') && (
                                 <SceneMenuBarItem
                                     onClick={() =>
                                         startExport({
@@ -279,7 +284,8 @@ function DashboardSceneMenuBarInner(): JSX.Element | null {
                             Customize colors
                         </SceneMenuBarItem>
                     )}
-                    {canSaveProjectDashboardTemplate && (
+                    {/* Whitelabel-gated: dashboard.templating */}
+                    {canSaveProjectDashboardTemplate && isVisible('dashboard.templating') && (
                         <SceneMenuBarItem
                             opensFloatingUi
                             onClick={() => {
@@ -324,14 +330,17 @@ function DashboardSceneMenuBarInner(): JSX.Element | null {
                     dataAttr={`${RESOURCE_TYPE}-menubar-metadata`}
                     contentClassName="w-80 p-2 flex flex-col gap-2"
                 >
-                    <SceneTagsCombobox
-                        onSave={(t) => updateDashboardTags(t)}
-                        canEdit={canEditDashboard}
-                        tags={dashboard?.tags}
-                        tagsAvailable={tags.filter((t) => !dashboard?.tags?.includes(t))}
-                        dataAttrKey={RESOURCE_TYPE}
-                        loading={isSavingTags}
-                    />
+                    {/* Whitelabel-gated: dashboard.tags */}
+                    {isVisible('dashboard.tags') && (
+                        <SceneTagsCombobox
+                            onSave={(t) => updateDashboardTags(t)}
+                            canEdit={canEditDashboard}
+                            tags={dashboard?.tags}
+                            tagsAvailable={tags.filter((t) => !dashboard?.tags?.includes(t))}
+                            dataAttrKey={RESOURCE_TYPE}
+                            loading={isSavingTags}
+                        />
+                    )}
                     <SceneActivityIndicator at={dashboard?.created_at} by={dashboard?.created_by} prefix="Created" />
                     {showMetalytics && (
                         <Button

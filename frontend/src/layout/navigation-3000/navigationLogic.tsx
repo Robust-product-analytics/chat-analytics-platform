@@ -34,6 +34,7 @@ import { urls } from 'scenes/urls'
 import { dashboardsModel } from '~/models/dashboardsModel'
 import { groupsModel } from '~/models/groupsModel'
 import { AccessControlLevel, AccessControlResourceType } from '~/types'
+import { VISIBLE_NAVBAR_SCENE_IDS } from '~/whitelabel/visibility'
 
 import { navigationLogic } from '../navigation/navigationLogic'
 import type { navigation3000LogicType } from './navigationLogicType'
@@ -388,7 +389,7 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                 dashboardsModel.selectors.pinnedDashboards,
             ],
             (featureFlags, dashboardsLoading, pinnedDashboards): NavbarItem[][] => {
-                return [
+                const groups: NavbarItem[][] = [
                     [
                         {
                             identifier: Scene.ProjectHomepage,
@@ -531,6 +532,9 @@ export const navigation3000Logic = kea<navigation3000LogicType>([
                         },
                     ].filter(isNotNil) as NavbarItem[],
                 ]
+                // Whitelabel: only show items in VISIBLE_NAVBAR_SCENE_IDS.
+                // Edit frontend/src/whitelabel/visibility.ts to re-enable items.
+                return groups.map((group) => group.filter((item) => VISIBLE_NAVBAR_SCENE_IDS.has(item.identifier)))
             },
         ],
         navbarItemIdMapping: [

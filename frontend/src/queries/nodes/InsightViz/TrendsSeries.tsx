@@ -17,6 +17,7 @@ import { groupsModel } from '~/models/groupsModel'
 import { LifecycleQuery, NodeKind, StickinessQuery, TrendsQuery } from '~/queries/schema/schema-general'
 import { isInsightQueryNode } from '~/queries/utils'
 import { ChartDisplayType, FilterType } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { actionsAndEventsToSeries } from '../InsightQuery/utils/filtersToQueryNode'
 import { queryNodeToFilter } from '../InsightQuery/utils/queryNodeToFilter'
@@ -66,8 +67,12 @@ export function TrendsSeries(): JSX.Element | null {
         isLifecycle ||
         isStickiness
 
+    // Whitelabel: trends.formula key hides the formula switch entirely.
     const showFormulaOption =
-        isTrends && display !== ChartDisplayType.CalendarHeatmap && display !== ChartDisplayType.BoxPlot
+        isTrends &&
+        display !== ChartDisplayType.CalendarHeatmap &&
+        display !== ChartDisplayType.BoxPlot &&
+        isVisible('trends.formula')
 
     const canDisableFormula: boolean =
         !isTrends || !display || !SINGLE_SERIES_DISPLAY_TYPES.includes(display) || series?.length === 1

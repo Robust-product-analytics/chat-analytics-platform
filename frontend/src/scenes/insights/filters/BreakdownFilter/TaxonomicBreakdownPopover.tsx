@@ -9,6 +9,7 @@ import { insightVizDataLogic } from 'scenes/insights/insightVizDataLogic'
 
 import { groupsModel } from '~/models/groupsModel'
 import { isInsightVizNode, isRetentionQuery } from '~/queries/utils'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { taxonomicBreakdownFilterLogic } from './taxonomicBreakdownFilterLogic'
 
@@ -65,6 +66,12 @@ export const TaxonomicBreakdownPopover = ({
             TaxonomicFilterGroupType.DataWarehouseProperties,
             TaxonomicFilterGroupType.DataWarehousePersonProperties,
         ]
+    }
+
+    // Whitelabel: trends.breakdown.cohort key removes the Cohorts group from
+    // the breakdown picker. Edit frontend/src/whitelabel/visibility.ts to expose.
+    if (!isVisible('trends.breakdown.cohort')) {
+        taxonomicGroupTypes = taxonomicGroupTypes.filter((t) => t !== TaxonomicFilterGroupType.CohortsWithAllUsers)
     }
 
     return (

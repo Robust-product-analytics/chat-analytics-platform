@@ -15,6 +15,7 @@ import { urls } from 'scenes/urls'
 
 import { KNOWN_PROMOTED_PROPERTY_PARENTS } from '~/taxonomy/taxonomy'
 import { PropertyDefinitionType } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { ConversationDisplay } from 'products/llm_analytics/frontend/ConversationDisplay/ConversationDisplay'
 import { EvaluationDisplay } from 'products/llm_analytics/frontend/ConversationDisplay/EvaluationDisplay'
@@ -162,6 +163,10 @@ export function EventDetails({ event, tableProps }: EventDetailsProps): JSX.Elem
                             </div>
                         )
                     case 'raw':
+                        // Whitelabel-gated: conversations.raw-json
+                        if (!isVisible('conversations.raw-json')) {
+                            return null
+                        }
                         return (
                             <div className="mx-3 -mt-3 py-2">
                                 <JSONViewer

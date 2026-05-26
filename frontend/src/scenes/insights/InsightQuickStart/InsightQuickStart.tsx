@@ -16,6 +16,7 @@ import { SceneContent } from '~/layout/scenes/components/SceneContent'
 import { SceneTitleSection } from '~/layout/scenes/components/SceneTitleSection'
 import { ProductKey } from '~/queries/schema/schema-general'
 import { InsightType } from '~/types'
+import { VISIBLE_INSIGHT_TYPES } from '~/whitelabel/visibility'
 
 // Preview images/GIFs for each insight type
 // Static images shown by default, GIFs play on hover
@@ -152,7 +153,10 @@ export function InsightQuickStart(): JSX.Element {
             metadata.inMenu &&
             insightType !== InsightType.JSON &&
             insightType !== InsightType.WEB_ANALYTICS &&
-            insightType !== InsightType.HOG
+            insightType !== InsightType.HOG &&
+            // Whitelabel filter — only insight types in VISIBLE_INSIGHT_TYPES are
+            // surfaced in the picker. Edit frontend/src/whitelabel/visibility.ts.
+            VISIBLE_INSIGHT_TYPES.has(insightType as InsightType)
     )
 
     return (

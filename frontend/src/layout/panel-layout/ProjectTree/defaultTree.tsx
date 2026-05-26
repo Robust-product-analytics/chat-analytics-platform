@@ -74,6 +74,11 @@ import {
 } from '~/products'
 import { FileSystemIconType, FileSystemImport, ProductItemCategory } from '~/queries/schema/schema-general'
 import { FileSystemIconColor } from '~/types'
+import {
+    HIDDEN_TREE_NEW_PATHS,
+    HIDDEN_TREE_PRODUCT_CATEGORIES,
+    HIDDEN_TREE_PRODUCT_SCENE_KEYS,
+} from '~/whitelabel/visibility'
 
 const iconTypes: Record<FileSystemIconType, { icon: JSX.Element; iconColor?: FileSystemIconColor }> = {
     default_icon_type: {
@@ -460,38 +465,12 @@ export function iconForType(type?: FileSystemIconType, colorOverride?: FileSyste
     )
 }
 
-const HIDDEN_PRODUCT_SCENE_KEYS = new Set([
-    'WebAnalytics',
-    'Replay',
-    'FeatureFlags',
-    'Experiments',
-    'Surveys',
-    'EarlyAccessFeatures',
-    'WebScripts',
-    'MarketingAnalytics',
-    'ErrorTracking',
-    'Heatmaps',
-    'SQLEditor',
-])
-
-const HIDDEN_PRODUCT_CATEGORIES = new Set<ProductItemCategory>([
-    ProductItemCategory.AI_ENGINEERING,
-    ProductItemCategory.TOOLS,
-    ProductItemCategory.BEHAVIOR,
-])
-
-const HIDDEN_NEW_TREE_PATHS = new Set([
-    'Session replay',
-    'Feature flag',
-    'Experiment',
-    'Survey',
-    'Early access feature',
-    'Data/Web script',
-])
+// Whitelabel: hidden sets moved to frontend/src/whitelabel/visibility.ts.
+// Edit that file to expose hidden items here.
 
 export const getDefaultTreeNew = (): FileSystemImport[] =>
     [...getTreeItemsNew()]
-        .filter((item) => !HIDDEN_NEW_TREE_PATHS.has(item.path))
+        .filter((item) => !HIDDEN_TREE_NEW_PATHS.has(item.path))
         .sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 export const getDefaultTreeData = (): FileSystemImport[] =>
     [...getTreeItemsMetadata()].sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
@@ -499,8 +478,8 @@ export const getDefaultTreeProducts = (): FileSystemImport[] =>
     [...getTreeItemsProducts()]
         .filter(
             (item) =>
-                (!item.sceneKey || !HIDDEN_PRODUCT_SCENE_KEYS.has(item.sceneKey)) &&
-                !HIDDEN_PRODUCT_CATEGORIES.has(item.category as ProductItemCategory)
+                (!item.sceneKey || !HIDDEN_TREE_PRODUCT_SCENE_KEYS.has(item.sceneKey)) &&
+                !HIDDEN_TREE_PRODUCT_CATEGORIES.has(item.category as ProductItemCategory)
         )
         .sort((a, b) => a.path.localeCompare(b.path, undefined, { sensitivity: 'accent' }))
 export const getDefaultTreeGames = (): FileSystemImport[] =>

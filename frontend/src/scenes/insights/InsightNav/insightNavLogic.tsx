@@ -66,6 +66,7 @@ import {
     isWebAnalyticsInsightQuery,
 } from '~/queries/utils'
 import { BaseMathType, InsightLogicProps, InsightType, IntervalType } from '~/types'
+import { VISIBLE_INSIGHT_TYPES } from '~/whitelabel/visibility'
 
 import { PRODUCT_ANALYTICS_DEFAULT_QUERY_TAGS } from 'products/product_analytics/frontend/constants'
 
@@ -521,7 +522,11 @@ export const insightNavLogic = kea<insightNavLogicType>([
                     })
                 }
 
-                return tabs
+                // Whitelabel: only insight-type tabs in VISIBLE_INSIGHT_TYPES are
+                // shown. The current activeView tab is always kept so a user
+                // viewing a legacy insight is not stranded with no tab selected.
+                // Edit frontend/src/whitelabel/visibility.ts to expose more types.
+                return tabs.filter((tab) => VISIBLE_INSIGHT_TYPES.has(tab.type) || tab.type === activeView)
             },
         ],
     }),

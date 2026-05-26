@@ -15,6 +15,7 @@ import { urls } from 'scenes/urls'
 
 import { saveActionFromEvent } from '~/models/saveAsActionDialog'
 import { EventType, SurveyEventName } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 export function EventRowActions({
     event,
@@ -48,7 +49,8 @@ function EventRowActionsDropdown({ event }: { event: EventType }): JSX.Element {
 
     return (
         <>
-            {getCurrentTeamId() && (
+            {/* Whitelabel-gated: conversations.create-action */}
+            {getCurrentTeamId() && isVisible('conversations.create-action') && (
                 <LemonButton
                     onClick={() =>
                         saveActionFromEvent(event, teamLogic.findMounted()?.values.currentTeam?.data_attributes || [])

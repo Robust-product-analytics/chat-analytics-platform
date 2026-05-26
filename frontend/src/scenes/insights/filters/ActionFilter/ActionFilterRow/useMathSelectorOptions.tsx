@@ -23,6 +23,7 @@ import {
     isTrendsQuery,
 } from '~/queries/utils'
 import { BaseMathType, ChartDisplayType, CountPerActorMathType, HogQLMathType, PropertyMathType } from '~/types'
+import { VISIBLE_TREND_MATH_OPTIONS } from '~/whitelabel/visibility'
 
 import {
     getDefaultPropertyMathType,
@@ -127,6 +128,9 @@ export function useMathSelectorOptions({
 
             return true
         })
+        // Whitelabel: keep only math types listed in VISIBLE_TREND_MATH_OPTIONS.
+        // Edit frontend/src/whitelabel/visibility.ts to expose more options.
+        .filter(([key]) => VISIBLE_TREND_MATH_OPTIONS.has(key.split('::')[0]))
         .map(([key, definition]) => {
             const mathTypeKey = key as MathType
             const warning = getMathTypeWarning(mathTypeKey, query || {}, trendsDisplayCategory === 'TotalValue')

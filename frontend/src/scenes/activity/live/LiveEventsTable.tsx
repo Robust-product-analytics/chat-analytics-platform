@@ -19,6 +19,7 @@ import { SceneContent } from '~/layout/scenes/components/SceneContent'
 import { SceneTitleSection } from '~/layout/scenes/components/SceneTitleSection'
 import { ProductKey } from '~/queries/schema/schema-general'
 import { ActivityTab, PropertyOperator } from '~/types'
+import { isVisible as isControlVisible } from '~/whitelabel/visibility'
 
 import { EventName } from 'products/actions/frontend/components/EventName'
 
@@ -95,20 +96,23 @@ export function LiveEventsTable(): JSX.Element {
                         operatorAllowlist={[PropertyOperator.Exact]}
                         buttonText="Filter by property"
                     />
-                    <LemonButton
-                        icon={
-                            streamPaused ? (
-                                <IconPlayFilled className="w-4 h-4" />
-                            ) : (
-                                <IconPauseFilled className="w-4 h-4" />
-                            )
-                        }
-                        type="secondary"
-                        onClick={streamPaused ? resumeStream : pauseStream}
-                        size="small"
-                    >
-                        {streamPaused ? 'Play' : 'Pause'}
-                    </LemonButton>
+                    {/* Whitelabel-gated: conversations.live-toggle */}
+                    {isControlVisible('conversations.live-toggle') && (
+                        <LemonButton
+                            icon={
+                                streamPaused ? (
+                                    <IconPlayFilled className="w-4 h-4" />
+                                ) : (
+                                    <IconPauseFilled className="w-4 h-4" />
+                                )
+                            }
+                            type="secondary"
+                            onClick={streamPaused ? resumeStream : pauseStream}
+                            size="small"
+                        >
+                            {streamPaused ? 'Play' : 'Pause'}
+                        </LemonButton>
+                    )}
                 </div>
             </div>
             <LiveBotPanel events={events} className="mb-2" />
