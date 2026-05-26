@@ -25,6 +25,7 @@ import { panelLayoutLogic } from '~/layout/panel-layout/panelLayoutLogic'
 import { ProductIconWrapper, iconForType } from '~/layout/panel-layout/ProjectTree/defaultTree'
 import { projectTreeDataLogic } from '~/layout/panel-layout/ProjectTree/projectTreeDataLogic'
 import { FileSystemEntry, FileSystemIconType } from '~/queries/schema/schema-general'
+import { BRAND } from '~/whitelabel/branding'
 
 import { HomepageGridItem, HomepageGridItemKind, aiFirstHomepageLogic } from './aiFirstHomepageLogic'
 import { HOMEPAGE_TAB_ID } from './constants'
@@ -164,8 +165,8 @@ function HomepageAiInput(): JSX.Element {
         return (
             <div className="border border-primary rounded-lg bg-surface-primary p-4 flex flex-col gap-2">
                 <p className="font-medium text-pretty m-0">
-                    PostHog AI needs your approval to potentially process identifying user data with external AI
-                    providers.
+                    {BRAND.aiAssistantLabel} needs your approval to potentially process identifying user data with
+                    external AI providers.
                 </p>
                 <p className="text-muted text-xs m-0">Your data won't be used for training models.</p>
                 {isAdmin ? (

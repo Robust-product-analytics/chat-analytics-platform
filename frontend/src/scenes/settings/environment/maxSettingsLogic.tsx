@@ -6,6 +6,7 @@ import api from 'lib/api'
 import { lemonToast } from 'lib/lemon-ui/LemonToast/LemonToast'
 
 import { CoreMemory } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import type { maxSettingsLogicType } from './maxSettingsLogicType'
 
@@ -53,12 +54,12 @@ export const maxSettingsLogic = kea<maxSettingsLogicType>([
             updateCoreMemory: async (data: CoreMemoryForm) => {
                 if (!values.coreMemory) {
                     const response = await api.coreMemory.create(data)
-                    lemonToast.success('PostHog AI memory has been created.')
+                    lemonToast.success(`${BRAND.aiAssistantLabel} memory has been created.`)
                     return response
                 }
 
                 const response = await api.coreMemory.update(values.coreMemory.id, data)
-                lemonToast.success('PostHog AI memory has been updated.')
+                lemonToast.success(`${BRAND.aiAssistantLabel} memory has been updated.`)
                 return response
             },
         },

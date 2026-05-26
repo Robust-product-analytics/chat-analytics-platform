@@ -30,6 +30,7 @@ import { cn } from 'lib/utils/css-classes'
 import { sidePanelStateLogic } from '~/layout/navigation-3000/sidepanel/sidePanelStateLogic'
 import { sceneLayoutLogic } from '~/layout/scenes/sceneLayoutLogic'
 import { SidePanelTab } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 /**
  * Scene layouts where the surrounding container applies horizontal/vertical padding to
@@ -108,7 +109,7 @@ function SceneMenuBarRightLinks(): JSX.Element {
                 className={RIGHT_TRIGGER_CLASSES}
                 variant="outline"
             >
-                PostHog AI
+                {BRAND.aiAssistantLabel}
             </Button>
         </div>
     )

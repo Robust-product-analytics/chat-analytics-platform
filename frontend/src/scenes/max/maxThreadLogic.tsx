@@ -63,6 +63,7 @@ import {
     PendingApproval,
     SidePanelTab,
 } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { LogEntry, parseLogEvent } from 'products/tasks/frontend/lib/parse-logs'
 
@@ -782,7 +783,7 @@ export const maxThreadLogic = kea<maxThreadLogicType>([
                             // Use server-provided message (includes research beta messaging)
                             relevantErrorMessage.content =
                                 e.detail ||
-                                `You've reached PostHog AI's usage limit for the moment. Please try again ${e.formattedRetryAfter}.`
+                                `You've reached ${BRAND.aiAssistantLabel}'s usage limit for the moment. Please try again ${e.formattedRetryAfter}.`
                         }
 
                         if (e.status === 402) {

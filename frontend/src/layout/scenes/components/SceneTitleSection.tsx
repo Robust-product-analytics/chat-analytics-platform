@@ -31,6 +31,7 @@ import { sidePanelStateLogic } from '~/layout/navigation-3000/sidepanel/sidePane
 import { breadcrumbsLogic } from '~/layout/navigation/Breadcrumbs/breadcrumbsLogic'
 import { FileSystemIconType } from '~/queries/schema/schema-general'
 import { Breadcrumb, FileSystemIconColor, SidePanelTab } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { ProductIconWrapper, iconForType } from '../../panel-layout/ProjectTree/defaultTree'
 import { sceneLayoutLogic } from '../sceneLayoutLogic'
@@ -73,7 +74,7 @@ export function SceneTitlePanelButton({
                 tooltip={
                     definition ? (
                         <>
-                            Open PostHog AI
+                            Open {BRAND.aiAssistantLabel}
                             <br />
                             <div className="flex items-center">
                                 {definition.icon || <IconWrench />}
@@ -81,7 +82,7 @@ export function SceneTitlePanelButton({
                             </div>
                         </>
                     ) : (
-                        'Open PostHog AI'
+                        `Open ${BRAND.aiAssistantLabel}`
                     )
                 }
                 tooltipPlacement="bottom-end"

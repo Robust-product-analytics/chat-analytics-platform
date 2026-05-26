@@ -81,6 +81,7 @@ import {
     QueryBasedInsightModel,
     SavedInsightsTabs,
 } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { ReloadInsight } from './ReloadInsight'
 import { savedInsightsLogic } from './savedInsightsLogic'
@@ -701,7 +702,8 @@ export function NewInsightButton(): JSX.Element {
                 <div className="flex flex-col text-sm py-1">
                     <strong>AI</strong>
                     <span className="text-xs font-normal">
-                        Ask PostHog AI to create insights using natural language and query any of your data
+                        Ask {BRAND.aiAssistantLabel} to create insights using natural language and query any of your
+                        data
                     </span>
                 </div>
             ),

@@ -27,6 +27,7 @@ import { sidePanelLogic } from '~/layout/navigation-3000/sidepanel/sidePanelLogi
 import { SceneContent } from '~/layout/scenes/components/SceneContent'
 import { SceneTitleSection } from '~/layout/scenes/components/SceneTitleSection'
 import { SidePanelTab } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { AiFirstMaxInstance } from './components/AiFirstMaxInstance'
 import { AnimatedBackButton } from './components/AnimatedBackButton'
@@ -165,7 +166,9 @@ export const MaxInstance = React.memo(function MaxInstance({ sidePanel, tabId }:
                     </AnimatedBackButton>
 
                     <Tooltip title={chatTitle || undefined} placement="bottom">
-                        <h3 className="flex-1 font-semibold mb-0 truncate text-sm ml-2">{chatTitle || 'PostHog AI'}</h3>
+                        <h3 className="flex-1 font-semibold mb-0 truncate text-sm ml-2">
+                            {chatTitle || BRAND.aiAssistantLabel}
+                        </h3>
                     </Tooltip>
                 </div>
                 {conversationId && !conversationHistoryVisible && !threadVisible && (

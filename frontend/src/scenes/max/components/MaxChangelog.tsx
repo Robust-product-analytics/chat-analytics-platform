@@ -8,6 +8,8 @@ import { useFeatureFlag } from 'lib/hooks/useFeatureFlag'
 import { Popover } from 'lib/lemon-ui/Popover/Popover'
 import { urls } from 'scenes/urls'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { AlertEntry, ChangelogEntry, maxChangelogLogic } from '../maxChangelogLogic'
 
 export function getTagProps(tag: ChangelogEntry['tag']): {
@@ -64,7 +66,9 @@ export function MaxChangelog(): JSX.Element | null {
                 <div className="p-3 min-w-[280px] max-w-[320px]">
                     <div className="flex items-center justify-between mb-3">
                         <h3 className="font-semibold text-sm m-0">
-                            {showAlerts ? 'PostHog AI status' : "What's new in PostHog AI"}
+                            {showAlerts
+                                ? `${BRAND.aiAssistantLabel} status`
+                                : `What's new in ${BRAND.aiAssistantLabel}`}
                         </h3>
                         <LemonButton size="xsmall" icon={<IconX />} onClick={closeChangelog} />
                     </div>

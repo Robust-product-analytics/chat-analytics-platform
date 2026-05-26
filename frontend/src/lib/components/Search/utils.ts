@@ -2,6 +2,8 @@ import { Dayjs, dayjs } from 'lib/dayjs'
 import { pluralize } from 'lib/utils'
 import { createFuse } from 'lib/utils/fuseSearch'
 
+import { BRAND } from '~/whitelabel/branding'
+
 interface FuseSearchable {
     name: string
     displayName?: string
@@ -49,8 +51,8 @@ export const getCategoryDisplayName = (category: string): string => {
         groups: 'Groups',
         eventDefinitions: 'Events',
         propertyDefinitions: 'Properties',
-        ai: 'PostHog AI',
-        askAI: 'Posthog AI',
+        ai: BRAND.aiAssistantLabel,
+        askAI: BRAND.aiAssistantLabel,
         insight: 'Insights',
         dashboard: 'Dashboards',
         feature_flag: 'Feature flags',

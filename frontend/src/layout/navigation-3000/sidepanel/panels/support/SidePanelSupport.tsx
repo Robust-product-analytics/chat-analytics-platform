@@ -19,6 +19,7 @@ import { userLogic } from 'scenes/userLogic'
 
 import { ProductKey } from '~/queries/schema/schema-general'
 import { AvailableFeature, BillingFeatureType, BillingPlan, BillingType } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { SidePanelTickets } from 'products/conversations/frontend/components/SidePanel/SidePanelTickets'
 
@@ -362,12 +363,12 @@ export function SidePanelSupport(): JSX.Element {
                     ) : (
                         <>
                             {showMaxAI && isBillingLoaded && (
-                                <Section title="Ask PostHog AI">
+                                <Section title={`Ask ${BRAND.aiAssistantLabel}`}>
                                     <div>
-                                        <p>PostHog AI can now answer 80%+ of the support questions we receive! Nice.</p>
+                                        <p>{BRAND.aiAssistantLabel} can now answer many of your questions instantly.</p>
                                         <p>
-                                            Let PostHog AI read 100s of pages of docs for you, write SQL queries and
-                                            expressions, regex patterns, etc.
+                                            Let {BRAND.aiAssistantLabel} read product documentation for you, write SQL
+                                            queries and expressions, regex patterns, etc.
                                         </p>
                                         <LemonButton
                                             type="primary"
@@ -379,7 +380,7 @@ export function SidePanelSupport(): JSX.Element {
                                             targetBlank={false}
                                             className="mt-2"
                                         >
-                                            Chat with PostHog AI
+                                            Chat with {BRAND.aiAssistantLabel}
                                         </LemonButton>
                                     </div>
                                 </Section>
@@ -389,7 +390,7 @@ export function SidePanelSupport(): JSX.Element {
                                 <Section title="Contact us">
                                     <StatusPageAlert />
                                     <SupportMessageOverride />
-                                    <p>Can't find what you need and PostHog AI unable to help?</p>
+                                    <p>Can't find what you need and {BRAND.aiAssistantLabel} unable to help?</p>
                                     <SidePanelTickets />
                                 </Section>
                             )}
@@ -398,7 +399,7 @@ export function SidePanelSupport(): JSX.Element {
                                 <Section title="Contact us">
                                     <StatusPageAlert />
                                     <SupportMessageOverride />
-                                    <p>Can't find what you need and PostHog AI unable to help?</p>
+                                    <p>Can't find what you need and {BRAND.aiAssistantLabel} unable to help?</p>
                                     <LemonButton
                                         type="secondary"
                                         fullWidth

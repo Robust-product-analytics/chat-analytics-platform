@@ -9,6 +9,8 @@ import { LemonTag, Tooltip } from '@posthog/lemon-ui'
 import { TaxonomicPopover } from 'lib/components/TaxonomicPopover/TaxonomicPopover'
 import { IconAction, IconEvent } from 'lib/lemon-ui/icons'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { ModeSelector } from './components/ModeSelector'
 import { maxContextLogic } from './maxContextLogic'
 import { maxThreadLogic } from './maxThreadLogic'
@@ -350,7 +352,11 @@ export function ContextDisplay({ size = 'default' }: ContextDisplayProps): JSX.E
         <div className="px-2 w-full">
             <div className="flex flex-wrap items-start gap-1 w-full">
                 <ModeSelector />
-                <Tooltip title={contextDisabledReason ?? 'Add context to help PostHog AI answer your question'}>
+                <Tooltip
+                    title={
+                        contextDisabledReason ?? `Add context to help ${BRAND.aiAssistantLabel} answer your question`
+                    }
+                >
                     {/* Wrapper span prevents Base UI's Tooltip.Trigger from merging
                         props into TaxonomicPopover. Without it, mergeProps treats
                         onChange as a DOM event handler and wraps it in a single-arg

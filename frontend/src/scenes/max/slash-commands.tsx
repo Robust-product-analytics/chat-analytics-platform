@@ -3,6 +3,7 @@ import { IconActivity, IconMemory, IconRocket, IconSupport, IconThumbsUp } from 
 import { FeatureFlagKey } from 'lib/constants'
 
 import { SlashCommandName } from '~/queries/schema/schema-assistant-messages'
+import { BRAND } from '~/whitelabel/branding'
 
 export { SlashCommandName }
 
@@ -27,7 +28,7 @@ export const MAX_SLASH_COMMANDS: SlashCommand[] = [
     {
         name: SlashCommandName.SlashRemember,
         arg: '[information]',
-        description: "Add [information] to PostHog AI's project-level memory",
+        description: `Add [information] to ${BRAND.aiAssistantLabel}'s project-level memory`,
         icon: <IconMemory />,
     },
     {
@@ -38,7 +39,7 @@ export const MAX_SLASH_COMMANDS: SlashCommand[] = [
     {
         name: SlashCommandName.SlashFeedback,
         arg: '[your feedback]',
-        description: 'Share feedback about your PostHog AI experience',
+        description: `Share feedback about your ${BRAND.aiAssistantLabel} experience`,
         icon: <IconThumbsUp />,
     },
     {

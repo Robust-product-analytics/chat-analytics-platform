@@ -6,6 +6,8 @@ import { LemonButton, Popover, PopoverProps, Tooltip } from '@posthog/lemon-ui'
 
 import { maxGlobalLogic } from 'scenes/max/maxGlobalLogic'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { getExternalAIProvidersTooltipTitle, openAIConsentLegalDialog } from './aiConsentCopy'
 
 export function AIConsentPopoverContent({
@@ -24,7 +26,7 @@ export function AIConsentPopoverContent({
     return (
         <div className="flex flex-col gap-2 m-1.5 max-w-prose">
             <p className="font-medium text-pretty">
-                PostHog AI needs your approval to potentially process identifying user data with{' '}
+                {BRAND.aiAssistantLabel} needs your approval to potentially process identifying user data with{' '}
                 <Tooltip title={getExternalAIProvidersTooltipTitle()}>
                     <dfn>external AI providers</dfn>
                 </Tooltip>

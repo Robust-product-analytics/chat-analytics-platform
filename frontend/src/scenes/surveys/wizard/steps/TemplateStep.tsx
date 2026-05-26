@@ -28,6 +28,8 @@ import { featureFlagLogic } from 'lib/logic/featureFlagLogic'
 import { eventUsageLogic } from 'lib/utils/eventUsageLogic'
 import { useMaxTool } from 'scenes/max/useMaxTool'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { SURVEY_CREATED_SOURCE, SurveyTemplate, SurveyTemplateMode, SurveyTemplateType } from '../../constants'
 import { surveysLogic } from '../../surveysLogic'
 import { surveyWizardLogic } from '../surveyWizardLogic'
@@ -192,7 +194,7 @@ export function TemplateStep({ handleCustomizeMore }: { handleCustomizeMore: () 
             <div className="flex items-center gap-4">
                 <div className="flex-1 border-t border-border" />
                 <span className="text-xs text-tertiary uppercase tracking-wide">
-                    or tell PostHog AI what you want to learn
+                    or tell {BRAND.aiAssistantLabel} what you want to learn
                 </span>
                 <div className="flex-1 border-t border-border" />
             </div>
@@ -219,7 +221,7 @@ export function TemplateStep({ handleCustomizeMore }: { handleCustomizeMore: () 
                     <div className="flex items-center justify-between px-4 pb-3">
                         <div className="flex items-center gap-1.5 text-xs text-tertiary">
                             <IconSparkles className="text-ai size-3.5" />
-                            <span>PostHog AI</span>
+                            <span>{BRAND.aiAssistantLabel}</span>
                         </div>
                         <LemonButton
                             type="primary"

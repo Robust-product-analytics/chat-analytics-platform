@@ -5,6 +5,8 @@ import { LemonBanner, Link } from '@posthog/lemon-ui'
 import { organizationLogic } from 'scenes/organizationLogic'
 import { urls } from 'scenes/urls'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { maxGlobalLogic } from '../maxGlobalLogic'
 
 export function AILiabilityNotice(): JSX.Element | null {
@@ -19,8 +21,8 @@ export function AILiabilityNotice(): JSX.Element | null {
     return (
         <div className="flex flex-col mb-2 max-w-160 w-full px-3">
             <LemonBanner type="ai" onClose={dismissLiabilityNotice}>
-                PostHog AI uses third-party LLM providers (OpenAI and Anthropic). Your data will not be used for
-                training models.
+                {BRAND.aiAssistantLabel} uses third-party LLM providers (OpenAI and Anthropic). Your data will not be
+                used for training models.
                 {isAdminOrOwner && (
                     <>
                         {' '}

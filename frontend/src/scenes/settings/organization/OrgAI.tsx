@@ -6,6 +6,8 @@ import { useRestrictedArea } from 'lib/components/RestrictedArea'
 import { OrganizationMembershipLevel } from 'lib/constants'
 import { organizationLogic } from 'scenes/organizationLogic'
 
+import { BRAND } from '~/whitelabel/branding'
+
 export function OrganizationAI(): JSX.Element {
     const { currentOrganization, currentOrganizationLoading } = useValues(organizationLogic)
     const { updateOrganization } = useActions(organizationLogic)
@@ -15,7 +17,7 @@ export function OrganizationAI(): JSX.Element {
     return (
         <div className="max-w-160">
             <LemonSwitch
-                label="Enable PostHog AI data analysis features"
+                label={`Enable ${BRAND.aiAssistantLabel} data analysis features`}
                 data-attr="organization-ai-enabled"
                 onChange={(checked) => {
                     updateOrganization({ is_ai_data_processing_approved: checked })

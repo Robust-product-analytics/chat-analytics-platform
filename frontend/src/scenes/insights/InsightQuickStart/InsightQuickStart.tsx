@@ -16,6 +16,7 @@ import { SceneContent } from '~/layout/scenes/components/SceneContent'
 import { SceneTitleSection } from '~/layout/scenes/components/SceneTitleSection'
 import { ProductKey } from '~/queries/schema/schema-general'
 import { InsightType } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 import { VISIBLE_INSIGHT_TYPES } from '~/whitelabel/visibility'
 
 // Preview images/GIFs for each insight type
@@ -172,7 +173,7 @@ export function InsightQuickStart(): JSX.Element {
             >
                 <InsightOptionCard
                     name="AI"
-                    description="Ask PostHog AI to create insights using natural language and query any of your data."
+                    description={`Ask ${BRAND.aiAssistantLabel} to create insights using natural language and query any of your data.`}
                     icon={IconSparkles}
                     iconClassName="text-ai"
                     url={urls.ai()}

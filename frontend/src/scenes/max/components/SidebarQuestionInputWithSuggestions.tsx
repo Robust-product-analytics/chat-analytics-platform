@@ -10,6 +10,7 @@ import { MaxMemorySettings } from 'scenes/settings/environment/MaxMemorySettings
 import { maxSettingsLogic } from 'scenes/settings/environment/maxSettingsLogic'
 
 import { AgentMode } from '~/queries/schema/schema-assistant-messages'
+import { BRAND } from '~/whitelabel/branding'
 
 import { QUESTION_SUGGESTIONS_DATA, RESEARCH_SUGGESTIONS_DATA, maxLogic } from '../maxLogic'
 import { maxThreadLogic } from '../maxThreadLogic'
@@ -34,10 +35,10 @@ export function SidebarQuestionInputWithSuggestions({
 
     const tip =
         !coreMemoryLoading && !coreMemory?.text
-            ? 'Tip: Run /init to initialize PostHog AI in this project'
+            ? `Tip: Run /init to initialize ${BRAND.aiAssistantLabel} in this project`
             : agentMode === AgentMode.Research
-              ? 'Try PostHog AI Research Mode for…'
-              : 'Try PostHog AI for…'
+              ? `Try ${BRAND.aiAssistantLabel} Research Mode for…`
+              : `Try ${BRAND.aiAssistantLabel} for…`
 
     return (
         <DismissableLayer
@@ -71,13 +72,13 @@ export function SidebarQuestionInputWithSuggestions({
                             size="xsmall"
                             type="secondary"
                             icon={<IconGear />}
-                            tooltip="Edit PostHog AI memory"
+                            tooltip={`Edit ${BRAND.aiAssistantLabel} memory`}
                         />,
                     ]}
                 />
             </div>
             <LemonModal
-                title="PostHog AI memory"
+                title={`${BRAND.aiAssistantLabel} memory`}
                 isOpen={settingsModalOpen}
                 onClose={() => setSettingsModalOpen(false)}
                 width="40rem"

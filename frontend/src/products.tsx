@@ -26,6 +26,7 @@ import {
 } from '~/queries/schema/schema-general'
 import { isDataTableNode, isDataVisualizationNode, isHogQLQuery } from '~/queries/utils'
 import { ActivityScope } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import type {
     SchemaConfigurationSection,
@@ -617,7 +618,7 @@ export const productConfiguration: Record<string, any> = {
         name: 'Session summaries',
         projectBased: true,
         description:
-            'View and deep-dive into AI-generated summaries of session recordings. Create summaries from the Session replay page by applying filters and asking PostHog AI to summarize sessions.',
+            `View and deep-dive into AI-generated summaries of session recordings. Create summaries from the Session replay page by applying filters and asking ${BRAND.aiAssistantLabel} to summarize sessions.`,
         iconType: 'notebook',
     },
     SessionGroupSummary: {

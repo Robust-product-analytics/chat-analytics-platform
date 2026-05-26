@@ -8,6 +8,8 @@ import { LemonButton, LemonInput, LemonModal } from '@posthog/lemon-ui'
 import { SupportForm } from 'lib/components/Support/SupportForm'
 import { supportLogic } from 'lib/components/Support/supportLogic'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { feedbackPromptLogic } from './feedbackPromptLogic'
 import { MessageTemplate } from './messages/MessageTemplate'
 import { captureFeedback } from './utils'
@@ -150,7 +152,7 @@ export function FeedbackPrompt({ conversationId, traceId }: FeedbackPromptProps)
     if (status === 'done') {
         return (
             <MessageTemplate type="ai">
-                <p className="m-0 text-sm text-secondary">Thanks for making PostHog AI better!</p>
+                <p className="m-0 text-sm text-secondary">Thanks for making {BRAND.aiAssistantLabel} better!</p>
             </MessageTemplate>
         )
     }
@@ -162,7 +164,7 @@ export function FeedbackPrompt({ conversationId, traceId }: FeedbackPromptProps)
                     <div className="flex flex-col gap-2">
                         <p className="m-0 font-medium">What could we improve?</p>
                         <LemonInput
-                            placeholder="Help us improve PostHog AI..."
+                            placeholder={`Help us improve ${BRAND.aiAssistantLabel}...`}
                             value={feedbackText}
                             onChange={setFeedbackText}
                             onPressEnter={submitFeedback}

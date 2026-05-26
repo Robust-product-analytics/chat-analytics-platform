@@ -19,6 +19,7 @@ import {
     QueryBasedInsightModel,
     SidePanelTab,
 } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { addInsightToDashboardLogic } from './addInsightToDashboardModalLogic'
 import { DASHBOARD_CANNOT_EDIT_MESSAGE } from './DashboardHeader'
@@ -110,7 +111,7 @@ function EmptyDashboardContent({ canEdit }: { canEdit: boolean }): JSX.Element {
 
     const aiDisabledReason =
         !dataProcessingAccepted &&
-        (dataProcessingApprovalDisabledReason ?? 'Approve AI data processing to use PostHog AI')
+        (dataProcessingApprovalDisabledReason ?? `Approve AI data processing to use ${BRAND.aiAssistantLabel}`)
 
     const onOpenAiWithPrompt = (prompt: string): void => {
         const trimmed = prompt.trim()

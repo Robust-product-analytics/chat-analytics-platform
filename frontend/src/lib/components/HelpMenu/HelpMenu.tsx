@@ -34,6 +34,7 @@ import { KeyboardShortcut } from '~/layout/navigation-3000/components/KeyboardSh
 import { navigation3000Logic } from '~/layout/navigation-3000/navigationLogic'
 import { sidePanelStateLogic } from '~/layout/navigation-3000/sidepanel/sidePanelStateLogic'
 import { SidePanelTab } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { SidePanelQuestionIcon } from 'products/conversations/frontend/components/SidePanel/SidePanelQuestionIcon'
 import { SidePanelSupportIcon } from 'products/conversations/frontend/components/SidePanel/SidePanelSupportIcon'
@@ -123,9 +124,9 @@ export function HelpMenu({ iconOnly = false }: { iconOnly?: boolean }): JSX.Elem
                                             <span className="size-3 [&>svg]:size-4 mb-3">
                                                 <IconSparkles className="text-ai" />
                                             </span>
-                                            <span className="text-sm font-medium">Ask PostHog AI</span>
+                                            <span className="text-sm font-medium">Ask {BRAND.aiAssistantLabel}</span>
                                             <span className="text-xs text-tertiary text-center text-pretty">
-                                                PostHog AI answers 80%+ of support questions we receive!
+                                                {BRAND.aiAssistantLabel} can answer many of your questions instantly.
                                             </span>
                                         </Link>
                                     )}

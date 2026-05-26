@@ -5,6 +5,8 @@ import { LemonSwitch, LemonTag, Link } from '@posthog/lemon-ui'
 import { getTagProps } from 'scenes/max/components/MaxChangelog'
 import { ChangelogEntry, maxChangelogLogic } from 'scenes/max/maxChangelogLogic'
 
+import { BRAND } from '~/whitelabel/branding'
+
 export function MaxChangelogSettings(): JSX.Element {
     const { entries, isDismissed, hasEntries } = useValues(maxChangelogLogic)
     const { enableChangelog, dismissChangelog } = useActions(maxChangelogLogic)
@@ -20,7 +22,7 @@ export function MaxChangelogSettings(): JSX.Element {
     if (!hasEntries) {
         return (
             <div className="text-muted text-sm">
-                No changelog entries available. Check back later for updates on new PostHog AI features.
+                No changelog entries available. Check back later for updates on new {BRAND.aiAssistantLabel} features.
             </div>
         )
     }
@@ -30,7 +32,7 @@ export function MaxChangelogSettings(): JSX.Element {
             <LemonSwitch
                 checked={!isDismissed}
                 onChange={handleToggle}
-                label="Show 'What's new' button in PostHog AI"
+                label={`Show 'What's new' button in ${BRAND.aiAssistantLabel}`}
                 bordered
             />
 
@@ -54,7 +56,7 @@ export function MaxChangelogSettings(): JSX.Element {
                     <Link to="https://posthog.com/changelog?team=PostHog+AI" target="_blank">
                         complete changelog
                     </Link>{' '}
-                    for all PostHog AI updates.
+                    for all {BRAND.aiAssistantLabel} updates.
                 </p>
             </div>
         </div>

@@ -29,6 +29,7 @@ import {
     RecordingUniversalFilters,
     SidePanelTab,
 } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { maxContextLogic } from './maxContextLogic'
 import { maxGlobalLogic } from './maxGlobalLogic'
@@ -709,7 +710,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
                 requiresUserInput: true,
             },
         ],
-        tooltip: 'PostHog AI can generate insights from natural language and tweak existing ones.',
+        tooltip: `${BRAND.aiAssistantLabel} can generate insights from natural language and tweak existing ones.`,
     },
     {
         label: 'SQL',
@@ -721,7 +722,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
             },
         ],
         url: urls.sqlEditor(),
-        tooltip: 'PostHog AI can generate SQL queries for your PostHog data, both analytics and the data warehouse.',
+        tooltip: `${BRAND.aiAssistantLabel} can generate SQL queries for your ${BRAND.productName} data, both analytics and the data warehouse.`,
     },
     {
         label: 'Session replay',
@@ -733,7 +734,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
             },
         ],
         url: productUrls.replay(),
-        tooltip: 'PostHog AI can find session recordings for you.',
+        tooltip: `${BRAND.aiAssistantLabel} can find session recordings for you.`,
     },
     {
         label: 'SDK setup',
@@ -768,7 +769,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
                 requiresUserInput: true,
             },
         ],
-        tooltip: 'PostHog AI can help you set up PostHog SDKs in your stack.',
+        tooltip: `${BRAND.aiAssistantLabel} can help you set up PostHog SDKs in your stack.`,
     },
     {
         label: 'Feature flags',
@@ -832,7 +833,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
             },
         ],
         url: urls.surveys(),
-        tooltip: 'PostHog AI can help you create surveys to collect feedback from your users.',
+        tooltip: `${BRAND.aiAssistantLabel} can help you create surveys to collect feedback from your users.`,
     },
     {
         label: 'Docs',
@@ -854,7 +855,7 @@ export const QUESTION_SUGGESTIONS_DATA: readonly SuggestionGroup[] = [
                 content: 'How can I capture an exception?',
             },
         ],
-        tooltip: 'PostHog AI has access to PostHog docs and can help you get the most out of PostHog.',
+        tooltip: `${BRAND.aiAssistantLabel} has access to product documentation and can help you get the most out of ${BRAND.productName}.`,
     },
 ]
 

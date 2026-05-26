@@ -4,6 +4,8 @@ import React from 'react'
 import { IconPlusSmall, IconSparkles, IconWrench } from '@posthog/icons'
 import { Tooltip } from '@posthog/lemon-ui'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { ToolRegistration } from './max-constants'
 import { useMaxTool } from './useMaxTool'
 
@@ -59,11 +61,11 @@ export function MaxTool({
                         !isMaxOpen ? (
                             <>
                                 <IconSparkles className="mr-1.5" />
-                                {definition.name} with PostHog AI
+                                {definition.name} with {BRAND.aiAssistantLabel}
                             </>
                         ) : (
                             <>
-                                PostHog AI can use this tool
+                                {BRAND.aiAssistantLabel} can use this tool
                                 <br />
                                 <div className="flex items-center">
                                     {definition.icon || <IconWrench />}

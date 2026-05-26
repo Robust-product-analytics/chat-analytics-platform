@@ -26,6 +26,7 @@ import {
     TeamPublicType,
     UserType,
 } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import type { supportLogicType } from './supportLogicType'
 import { openSupportModal } from './SupportModal'
@@ -255,7 +256,7 @@ const TARGET_AREA_TO_NAME_PRODUCTS = [
     {
         value: 'max-ai',
         'data-attr': `support-form-target-area-max-ai`,
-        label: 'PostHog AI',
+        label: BRAND.aiAssistantLabel,
     },
     {
         value: 'posthog-mcp',

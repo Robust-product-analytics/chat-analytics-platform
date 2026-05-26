@@ -9,6 +9,7 @@ import { MaxThreadLogicProps, maxThreadLogic } from 'scenes/max/maxThreadLogic'
 import { Thread } from 'scenes/max/Thread'
 
 import { AgentMode } from '~/queries/schema/schema-assistant-messages'
+import { BRAND } from '~/whitelabel/branding'
 
 import { signalSourcesLogic } from './signalSourcesLogic'
 
@@ -24,7 +25,7 @@ function SessionAnalysisSetupIntro(): JSX.Element {
             </div>
             <h3 className="text-base font-bold mb-0.5">Configure session filters</h3>
             <p className="text-xs text-secondary max-w-sm mb-0">
-                Describe what sessions to analyze. PostHog AI will help you build the right filters.
+                Describe what sessions to analyze. {BRAND.aiAssistantLabel} will help you build the right filters.
             </p>
         </div>
     )

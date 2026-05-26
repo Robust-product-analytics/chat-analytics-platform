@@ -10,6 +10,7 @@ import { featureFlagLogic } from 'lib/logic/featureFlagLogic'
 import { maxGlobalLogic } from 'scenes/max/maxGlobalLogic'
 
 import { SurveyQuestion, SurveyQuestionType } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { internalMultipleChoiceSurveyLogic } from './internalMultipleChoiceSurveyLogic'
 
@@ -246,7 +247,7 @@ export function InternalMultipleChoiceSurvey({ surveyId }: InternalSurveyProps):
                                                     )
                                                 }}
                                             >
-                                                Ask PostHog AI for help
+                                                Ask {BRAND.aiAssistantLabel} for help
                                             </LemonButton>
                                         )}
                                     </div>

@@ -11,6 +11,7 @@ import { featureFlagLogic } from 'lib/logic/featureFlagLogic'
 
 import { AgentMode } from '~/queries/schema/schema-assistant-messages'
 import { ConversationType } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import {
     MODE_DEFINITIONS,
@@ -279,7 +280,7 @@ export function ModeSelector(): JSX.Element | null {
                     : contextDisabledReason
             }
             tooltip={buildGeneralTooltip(
-                'Select a mode to focus PostHog AI on a specific product or task. Each mode unlocks specialized capabilities, tools, and expertise.',
+                `Select a mode to focus ${BRAND.aiAssistantLabel} on a specific product or task. Each mode unlocks specialized capabilities, tools, and expertise.`,
                 getDefaultTools()
             )}
             dropdownPlacement="top-start"
