@@ -8,6 +8,8 @@ import { sceneLogic } from 'scenes/sceneLogic'
 import { Scene } from 'scenes/sceneTypes'
 import { userLogic } from 'scenes/userLogic'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { AskMaxCard } from './cards/AskMaxCard'
 import { PopularDashboardsCard } from './cards/PopularDashboardsCard'
 import { ProductsInUseCard } from './cards/ProductsInUseCard'
@@ -77,7 +79,7 @@ export function WelcomeDialog(): JSX.Element | null {
             isOpen={shouldShowDialog}
             onClose={() => closeDialog()}
             width={640}
-            title={`Welcome to ${organizationName || 'PostHog'}`}
+            title={`Welcome to ${organizationName || BRAND.productName}`}
             description={inviterLine}
             data-attr="welcome-dialog"
             footer={

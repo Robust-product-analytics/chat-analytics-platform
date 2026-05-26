@@ -38,6 +38,7 @@ import {
     RolesAccessControls,
 } from '~/layout/navigation-3000/sidepanel/panels/access_control/RolesAccessControls'
 import { AccessControlLevel, AccessControlResourceType, Realm } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { ChannelsSection } from 'products/conversations/frontend/scenes/settings/ChannelsSection'
 import { GeneralSection } from 'products/conversations/frontend/scenes/settings/GeneralSection'
@@ -326,14 +327,13 @@ export const SETTINGS_MAP: SettingSection[] = [
     {
         level: 'environment',
         id: 'environment-max',
-        title: 'PostHog AI',
+        title: BRAND.aiAssistantLabel,
         group: 'AI',
         settings: [
             {
                 id: 'core-memory',
                 title: 'Memory',
-                description:
-                    "PostHog AI automatically remembers details about your company and product. This context helps our AI assistant provide relevant answers and suggestions. If there are any details you don't want PostHog AI to remember, you can edit or remove them below.",
+                description: `${BRAND.aiAssistantLabel} automatically remembers details about your company and product. This context helps our AI assistant provide relevant answers and suggestions. If there are any details you don't want ${BRAND.aiAssistantLabel} to remember, you can edit or remove them below.`,
                 component: <MaxMemorySettings />,
                 hideOn: [Realm.SelfHostedClickHouse, Realm.SelfHostedPostgres],
             },
@@ -341,8 +341,7 @@ export const SETTINGS_MAP: SettingSection[] = [
                 // FIXME: changelog should probably not be here since it updates user's settings. Maybe belongs under account settings?
                 id: 'changelog',
                 title: 'Changelog',
-                description:
-                    'See the latest PostHog AI features and control whether the changelog appears in the main UI.',
+                description: `See the latest ${BRAND.aiAssistantLabel} features and control whether the changelog appears in the main UI.`,
                 component: <MaxChangelogSettings />,
                 hideOn: [Realm.SelfHostedClickHouse, Realm.SelfHostedPostgres],
             },
@@ -351,7 +350,7 @@ export const SETTINGS_MAP: SettingSection[] = [
     {
         level: 'environment',
         id: 'environment-posthog-code',
-        title: 'PostHog Code',
+        title: BRAND.codeAgentLabel,
         flag: 'TASKS',
         settings: [
             {
@@ -364,7 +363,7 @@ export const SETTINGS_MAP: SettingSection[] = [
     {
         level: 'environment',
         id: 'posthog-mcp',
-        title: 'PostHog MCP',
+        title: BRAND.mcpLabel,
         group: 'AI',
         settings: [
             {
@@ -388,7 +387,7 @@ export const SETTINGS_MAP: SettingSection[] = [
             {
                 id: 'mcp-servers-manage',
                 title: 'MCP servers',
-                description: 'Install and manage MCP servers for your PostHog AI and PostHog Code agents.',
+                description: `Install and manage MCP servers for your ${BRAND.aiAssistantLabel} and ${BRAND.codeAgentLabel} agents.`,
                 component: <McpStoreSettings />,
                 keywords: ['mcp', 'server', 'install', 'oauth', 'ai', 'agent'],
             },
@@ -1484,10 +1483,10 @@ export const SETTINGS_MAP: SettingSection[] = [
             },
             {
                 id: 'organization-ai-consent',
-                title: 'PostHog AI data analysis',
+                title: `${BRAND.aiAssistantLabel} data analysis`,
                 description: (
                     <>
-                        PostHog AI features, such as the PostHog AI chat, use{' '}
+                        {BRAND.aiAssistantLabel} features, such as the {BRAND.aiAssistantLabel} chat, use{' '}
                         <Tooltip title={getExternalAIProvidersTooltipTitle()}>
                             <dfn>external AI services</dfn>
                         </Tooltip>{' '}
@@ -1504,8 +1503,7 @@ export const SETTINGS_MAP: SettingSection[] = [
                 ),
                 component: <OrganizationAI />,
                 keywords: ['llm', 'consent', 'opt-in', 'data sharing'],
-                searchDescription:
-                    'PostHog AI features use external AI services for data analysis. This can involve transfer of identifying user data.',
+                searchDescription: `${BRAND.aiAssistantLabel} features use external AI services for data analysis. This can involve transfer of identifying user data.`,
             },
             {
                 id: 'organization-ip-anonymization-default',
@@ -1785,8 +1783,7 @@ export const SETTINGS_MAP: SettingSection[] = [
             {
                 id: 'mcp-hints',
                 title: 'MCP hints',
-                description:
-                    'After you take an action in PostHog (creating a feature flag, building a dashboard, etc.), show a small hint that the same action can be done from your IDE via the PostHog MCP. Rate-limited to once a week.',
+                description: `After you take an action in ${BRAND.productName} (creating a feature flag, building a dashboard, etc.), show a small hint that the same action can be done from your IDE via ${BRAND.mcpLabel}. Rate-limited to once a week.`,
                 component: <MCPHintsSetting />,
                 flag: [['MCP_HINTS', 'test']],
                 keywords: ['mcp', 'claude', 'cursor', 'codex', 'ide', 'hints', 'wizard'],

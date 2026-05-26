@@ -20,6 +20,7 @@ import { ErrorBoundary } from '~/layout/ErrorBoundary'
 import { themeLogic } from '~/layout/navigation-3000/themeLogic'
 import { panelLayoutLogic } from '~/layout/panel-layout/panelLayoutLogic'
 import { SidePanelTab } from '~/types'
+import { BRAND } from '~/whitelabel/branding'
 
 import { SidePanelSupportIcon } from 'products/conversations/frontend/components/SidePanel/SidePanelSupportIcon'
 
@@ -36,7 +37,7 @@ import { sidePanelStateLogic } from './sidePanelStateLogic'
 
 export const SIDE_PANEL_TABS: Record<SidePanelTab, { label: string; Icon: any; Content: any }> = {
     [SidePanelTab.Max]: {
-        label: 'PostHog AI',
+        label: BRAND.aiAssistantLabel,
         Icon: IconLogomark,
         Content: SidePanelMax,
     },

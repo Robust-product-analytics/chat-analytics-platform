@@ -13,6 +13,8 @@ import { Spinner } from 'lib/lemon-ui/Spinner/Spinner'
 import { SceneExport } from 'scenes/sceneTypes'
 import { urls } from 'scenes/urls'
 
+import { BRAND } from '~/whitelabel/branding'
+
 import { verifyEmailLogic } from './verifyEmailLogic'
 
 export const scene: SceneExport = {
@@ -133,7 +135,7 @@ export function VerifyEmail(): JSX.Element {
                     <div className="px-12 py-8 text-center flex flex-col items-center max-w-160 w-full relative">
                         {view === 'pending' ? (
                             <>
-                                <h2 className="text-lg">Welcome to PostHog!</h2>
+                                <h2 className="text-lg">Welcome to {BRAND.productName}!</h2>
                                 <h1 className="text-3xl font-bold">Let's verify your email address.</h1>
                                 <div className="max-w-60 my-10">
                                     <MailHog className="w-full h-full" />
@@ -152,7 +154,7 @@ export function VerifyEmail(): JSX.Element {
                                 <div className="max-w-60 mb-12">
                                     <HeartHog className="w-full h-full" />
                                 </div>
-                                <p>Thanks for verifying your email address. Now taking you to PostHog...</p>
+                                <p>Thanks for verifying your email address. Now taking you to {BRAND.productName}...</p>
                             </>
                         ) : view === 'invalid' ? (
                             <>

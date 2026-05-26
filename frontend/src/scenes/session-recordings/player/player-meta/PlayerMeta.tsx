@@ -5,7 +5,6 @@ import { useActions, useValues } from 'kea'
 
 import { LemonSelect, LemonSelectOption, Link } from '@posthog/lemon-ui'
 
-import { Logo } from 'lib/brand/Logo'
 import { CopyToClipboardInline } from 'lib/components/CopyToClipboard'
 import { useResizeBreakpoints } from 'lib/hooks/useResizeObserver'
 import { LemonSkeleton } from 'lib/lemon-ui/LemonSkeleton'
@@ -111,13 +110,7 @@ export function PlayerMeta(): JSX.Element {
         return (
             <div className="PlayerMeta">
                 <div className="flex justify-between items-center m-2">
-                    {!whitelabel ? (
-                        <Tooltip title="Powered by PostHog" placement="right">
-                            <Link to="https://posthog.com" className="flex items-center" target="blank">
-                                <Logo />
-                            </Link>
-                        </Tooltip>
-                    ) : null}
+                    {/* Whitelabel: "Powered by PostHog" attribution dropped per brand decision. */}
                 </div>
             </div>
         )
