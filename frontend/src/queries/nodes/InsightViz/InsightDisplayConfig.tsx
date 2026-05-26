@@ -47,6 +47,7 @@ import { trendsDataLogic } from 'scenes/trends/trendsDataLogic'
 import { hasBreakdownFilter, isWebAnalyticsInsightQuery } from '~/queries/utils'
 import { isTrendsQuery } from '~/queries/utils'
 import { ChartDisplayType } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 export function InsightDisplayConfig(): JSX.Element {
     const { insightProps, canEditInsight, editingDisabledReason } = useValues(insightLogic)
@@ -371,7 +372,8 @@ export function InsightDisplayConfig(): JSX.Element {
                     </ConfigFilter>
                 )}
 
-                {showCompare && (
+                {/* Whitelabel-gated: trends.compare */}
+                {showCompare && isVisible('trends.compare') && (
                     <ConfigFilter>
                         <CompareFilter
                             compareFilter={compareFilter}

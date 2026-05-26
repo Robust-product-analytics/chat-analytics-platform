@@ -59,6 +59,7 @@ import {
     QueryBasedInsightModel,
     SidePanelTab,
 } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { endpointLogic } from 'products/endpoints/frontend/endpointLogic'
 
@@ -321,7 +322,8 @@ function InsightSceneMenuBarInner({ insightLogicProps }: { insightLogicProps: In
                         <IconCopy />
                         Duplicate
                     </SceneMenuBarItem>
-                    {canEditInSqlEditor && (
+                    {/* Whitelabel-gated: trends.sql */}
+                    {canEditInSqlEditor && isVisible('trends.sql') && (
                         <SceneMenuBarItem
                             onClick={() => push(urls.sqlEditor({ query: hogQL ?? undefined }))}
                             data-attr={`${RESOURCE_TYPE}-menubar-edit-sql`}

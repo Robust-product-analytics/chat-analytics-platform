@@ -38,6 +38,7 @@ import {
     InsightEditorFilterGroup,
     PathType,
 } from '~/types'
+import { isVisible } from '~/whitelabel/visibility'
 
 import { Breakdown } from './Breakdown'
 import { CumulativeStickinessFilter } from './CumulativeStickinessFilter'
@@ -365,7 +366,12 @@ export function EditorFilters({ query, showing, embedded }: EditorFiltersProps):
                     component: GoalLines,
                     show: displayGoalLines,
                 },
-                { key: 'sampling-deprecation', component: SamplingDeprecationNotice },
+                // Whitelabel-gated: trends.sampling (hides the deprecation notice)
+                {
+                    key: 'sampling-deprecation',
+                    component: SamplingDeprecationNotice,
+                    show: isVisible('trends.sampling'),
+                },
             ]),
         },
     ]
