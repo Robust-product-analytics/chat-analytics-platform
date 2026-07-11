@@ -174,9 +174,7 @@ class HogQLCursorPaginator:
 
             if self.cursor_data:
                 order_value = self.cursor_data.get("order_value")
-                # TODO: Remove session_id fallback after Jan 2026
-                # only needed for cursors created before the secondary_value rename
-                secondary_value = self.cursor_data.get("secondary_value") or self.cursor_data.get("session_id")
+                secondary_value = self.cursor_data.get("secondary_value")
 
                 if order_value is not None and secondary_value is not None:
                     # Build WHERE clause for cursor-based pagination
